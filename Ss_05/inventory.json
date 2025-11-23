@@ -1,0 +1,26 @@
+[
+    {
+        "product_id": 1,
+        "name": "Bomb",
+        "quantity": 10,
+        "price": 100
+    },
+    {
+        "product_id": 2,
+        "name": "Sword",
+        "quantity": 20,
+        "price": 200
+    },
+    {
+        "product_id": 3,
+        "name": "Shield",
+        "quantity": 30,
+        "price": 300
+    },
+    {
+        "product_id": 4,
+        "name": "Potions",
+        "quantity": 50,
+        "price": 50
+    }
+]
