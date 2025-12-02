@@ -1,14 +1,21 @@
 import matplotlib.pyplot as plt
 
-import numpy as np
 
-fig, ax = plt.subplots(figsize=(8, 6))
+month = [1, 2, 3]
+cell = [100, 200, 300]
 
-x = np.random.randint(1, 10, 10)
-y = x**2
+# y = x^3
 
-ax.grid()
+
+
+
+fig, ax = plt.subplots()
+ax.plot(month, cell, color="red", linestyle="-", marker="o")
+
 ax.set_title("Biểu đồ bằng")
-ax.plot(x, y)
+
+
+ax.set_xlabel("Tgian")
+ax.set_ylabel("Doanh thu")
 
 plt.show()
