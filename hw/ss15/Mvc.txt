@@ -1,0 +1,190 @@
+🔵 2. Tầng 1 – Presentation Layer (Frontend)
+
+Đây là phần người dùng tương tác gồm:
+
+✔ Web Client (Odoo Web UI)
+
+Viết bằng JavaScript, framework QWeb & Owl (từ Odoo 14+).
+
+Sử dụng JSON-RPC để giao tiếp với Odoo server.
+
+Render giao diện như form view, list view, kanban, dashboards…
+
+✔ Mobile / External Apps
+
+Dùng JSON-RPC hoặc REST API (community modules).
+
+Có thể kết nối qua XML-RPC, JSON-RPC, GraphQL (nếu cài thêm module).
+
+✔ Website / eCommerce
+
+Giao diện render bằng QWeb Templates.
+
+Nhiệm vụ chính
+
+Hiển thị UI
+
+Gửi request đến application layer
+
+Nhận lại dữ liệu đã xử lý
+
+🟢 3. Tầng 2 – Application Layer (Odoo Server)
+
+Đây là trái tim của hệ thống.
+
+Thành phần chính
+✔ Odoo Server (Python)
+
+Nhận request từ trình duyệt → xử lý → trả kết quả.
+
+Chịu trách nhiệm bảo mật, routing, session management.
+
+✔ Module Layer
+
+Odoo dựa trên cơ chế module mở rộng:
+
+CRM
+
+Accounting
+
+Inventory
+
+HR
+
+Custom modules…
+
+Module chứa:
+
+Python models
+
+Business logic
+
+Views (XML/QWeb)
+
+Data files
+
+✔ ORM Layer (Object Relational Mapping)
+
+Chuyển Python objects ↔ bảng PostgreSQL
+
+Tự sinh SQL queries
+
+Đảm bảo tính nhất quán dữ liệu
+
+✔ Business Logic
+
+Workflow
+
+Access rights
+
+Compute fields
+
+Automation (scheduled actions)
+
+Business rules
+
+✔ API Layer
+
+JSON-RPC
+
+XML-RPC
+
+HTTP controllers
+
+Websocket (từ Odoo 16 Enterprise)
+
+Nhiệm vụ chính
+
+Xử lý logic nghiệp vụ
+
+Điều khiển mô hình dữ liệu
+
+Truy xuất/ghi dữ liệu xuống DB
+
+Render response cho frontend
+
+🔴 4. Tầng 3 – Data Layer (PostgreSQL Database)
+
+Odoo sử dụng PostgreSQL 100%, không hỗ trợ MySQL.
+
+✔ Mỗi database = một instance Odoo logic (multi-tenant)
+
+Một Odoo server có thể chứa nhiều database:
+
+odoo -d db1
+odoo -d db2
+
+✔ Database lưu:
+
+Users, ACL, groups
+
+Products, orders, invoices
+
+Views, settings, translations
+
+Custom modules (dữ liệu cấu hình và metadata)
+
+Logs, parameters
+
+✔ Hot features của PostgreSQL mà Odoo tận dụng:
+
+JSONB fields
+
+Index & partial index
+
+Materialized view (PSE)
+
+Full-text search
+
+Row-level locking
+
+🧩 5. Luồng hoạt động điển hình của Odoo
+
+Ví dụ người dùng mở danh sách sản phẩm:
+
+User → click "Products"
+
+Browser gửi JSON-RPC request
+
+Odoo nhận request → ORM query đến PostgreSQL
+
+PostgreSQL trả data
+
+Odoo xử lý (domains, security rules, compute fields)
+
+Gửi JSON tới frontend
+
+Web client render giao diện
+
+🐳 6. Kiến trúc 3 tầng Odoo khi chạy bằng Docker
+
+Một cấu hình production phổ biến:
+
+┌─────────────┐     ┌──────────────────┐     ┌────────────────┐
+│   Nginx     │ →   │  Odoo Container  │ →   │  PostgreSQL DB │
+└─────────────┘     └──────────────────┘     └────────────────┘
+
+
+Nginx: reverse proxy, SSL termination
+
+Odoo: application layer
+
+PostgreSQL: data layer
+
+Có thể thêm Redis để tăng tốc session & longpolling
+
+🧠 7. Vì sao Odoo dùng kiến trúc 3 tầng?
+
+Dễ mở rộng (scale từng tầng riêng)
+
+Bảo mật hơn (DB tách biệt)
+
+Dễ bảo trì và backup
+
+Có thể load balancing application layer
+
+Hỗ trợ nhiều giao diện (Web, Mobile, API)
+
+Nếu bạn cần, mình có thể gửi luôn:
+✔ sơ đồ kiến trúc Odoo dạng hình ảnh
+✔ kiến trúc Odoo dùng Docker Compose

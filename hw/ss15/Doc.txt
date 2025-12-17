@@ -1,0 +1,217 @@
+📘 TÀI LIỆU KỸ THUẬT – PHÂN TÍCH MODULE ODOO
+1. Thông tin chung về module
+
+Tên module:
+
+Mã module (technical name):
+
+Phiên bản Odoo:
+
+Nhóm chức năng:
+
+Người thực hiện:
+
+Ngày tạo:
+
+2. Mô tả tổng quan
+
+Mô tả ngắn gọn mục đích của module.
+Ví dụ:
+
+Module hỗ trợ quản lý phiếu yêu cầu mua hàng, bao gồm tạo yêu cầu, phê duyệt, và đồng bộ với đơn mua hàng.
+
+3. Kiến trúc tổng thể
+3.1 Luồng nghiệp vụ (Business Flow)
+
+Mô tả dạng text:
+
+Ai là người sử dụng?
+
+Các bước nghiệp vụ?
+
+Điều kiện và ràng buộc?
+
+Ví dụ:
+
+Nhân viên tạo yêu cầu mua hàng
+
+Trưởng bộ phận phê duyệt
+
+Kế toán kiểm tra ngân sách
+
+Bộ phận mua hàng tạo PO
+
+(Nếu cần mình có thể bổ sung sơ đồ flow BPMN)
+
+4. Phân tích chức năng (Functional Specification)
+4.1 Danh sách chức năng chính
+
+Chức năng 1:
+
+Chức năng 2:
+
+Chức năng 3:
+
+4.2 Mô tả từng chức năng
+
+Tên chức năng:
+Mô tả:
+Input:
+Output:
+Điều kiện / ràng buộc:
+Người dùng:
+
+5. Phân tích kỹ thuật (Technical Specification)
+5.1 Mô hình dữ liệu (Data Model)
+- Danh sách model (Python models)
+Model	Mô tả	Kế thừa	Tạo mới / Kế thừa
+			
+- Trường (Fields)
+
+Cho từng model:
+
+Model: <tên model>
+
+Trường	Kiểu	Mô tả	Lưu ý
+			
+- Quan hệ dữ liệu
+
+one2many:
+
+many2one:
+
+many2many:
+
+5.2 Quy trình xử lý (Business Logic / Python Code)
+
+Mô tả logic chính của module:
+
+override methods: create(), write(), unlink()
+
+compute fields (@api.depends)
+
+constraints (@api.constrains)
+
+scheduled actions (cron)
+
+workflow
+
+security rules / domain rules
+
+Ví dụ:
+
+Module override phương thức create để tự động sinh mã chứng từ.
+
+5.3 Views / Giao diện XML
+
+Form view:
+
+Tree view:
+
+Kanban:
+
+Search view:
+
+Wizards:
+
+Mô tả những điểm tùy chỉnh:
+
+field thêm vào view
+
+ẩn/hiện
+
+điều kiện attrs=
+
+chỉnh sửa menu
+
+5.4 Bảo mật (Security)
+
+ir.model.access.csv: phân quyền CRUD
+
+Record Rules: hạn chế dữ liệu theo nhóm
+
+Quyền theo menu
+
+Ví dụ:
+
+Nhân viên chỉ xem được yêu cầu mua hàng của chính họ.
+
+5.5 API / Integrations (nếu có)
+
+JSON-RPC
+
+REST (qua module mở rộng)
+
+Webhooks
+
+External system (SAP, ERP khác, Zalo OA, SMS…)
+
+Mô tả:
+
+Endpoint
+
+Input
+
+Output
+
+Authentication
+
+5.6 Data Files
+
+data/*.xml
+
+demo/*.xml
+
+security/*.csv
+
+views/*.xml
+
+Mô tả file dữ liệu nào tạo record mặc định.
+
+6. Kiến trúc triển khai (Deployment Architecture)
+Môi trường:
+
+Dev
+
+Staging
+
+Production
+
+Phụ thuộc:
+
+PostgreSQL version
+
+Module bắt buộc (dependencies)
+
+Khi deploy:
+
+-u module_name
+
+Thêm cấu hình trong odoo.conf
+
+Thêm tham số hệ thống (ir.config_parameter)
+
+7. Rủi ro & Giới hạn (Risks & Constraints)
+
+Rủi ro sử dụng nhiều compute fields → performance
+
+Dữ liệu lớn → cần index
+
+Tương thích với Odoo 17/16…
+
+Tác động đến module core
+
+8. Test Case (Manual/Automatic)
+8.1 Test case chức năng
+ID	Chức năng	Bước thực hiện	Kết quả mong đợi	Kết quả thực tế
+8.2 Unit Test / Python Test
+
+test model
+
+test workflow
+
+test security
+
+9. Tài liệu tham khảo
+
+Odoo Developer Documentation
